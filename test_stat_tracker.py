@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# should I set up a virtual environment for this project?
+# Before switching to all info in dictionary
 import random 
 from functions import build_stat
 from functions import kd_function
