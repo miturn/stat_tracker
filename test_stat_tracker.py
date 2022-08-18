@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 # Before switching to all info in dictionary
-import random 
+import random
+import sys
+#from tkinter import N 
 from functions import build_stat
 from functions import kd_function
 # Create stock templetes
@@ -14,13 +16,14 @@ from functions import kd_function
 name_done = False
 start = False
 game_stat_active = {}
-num_players = []
+players = []
+num_players = 0
 whole_end = False
 kd_end = True
 
-#game_stat_active = {"kd" : [1,2,3], "kills" : [1,2,3], "deaths" : [1,2,3], "get_kill_cam" : [1,2,3], 
-#             "in_kill_cam" : [1,2,3], "greatness" : [1,2,3]}
-#game_stat = [False] * 8
+#game_stat_active = {"kd" : [1,2,3,4], "kills" : [1,2,3,4], "deaths" : [1,2,3,4], "get_kill_cam" : [1,2,3,4], 
+#             "in_kill_cam" : [1,2,3,4], "greatness" : [1,2,3,4]}
+game_stat = [False] * 8 # game_stat = [0kd, 1kills, 2deaths, 3you are the kill cam, 4in the kill cam, 5greatness]
 
 
 # functions ******put function in different file so I can call it anywhere
@@ -46,26 +49,28 @@ while (start == False):
        
     # main menu inputs, change False to True in List 
     if (selection == 1): # game_stat[0]
-        num_players = [None] * 2
-        num_players[0] = input("first player: ")
-        num_players[1] = input("second player: ")
+        players = [None] * 2
+        players[0] = input("first player: ")
+        players[1] = input("second player: ")
+        game_stat_active['player0'] = players[0]
+        game_stat_active['player1'] = players[1]
         game_stat_active['kd'] = [1,2,3]
         game_stat_active['get_kill_cam'] = [1,2,3]
         game_stat_active['in_kill_cam'] = [1,2,3]
         game_stat_active['greatness'] = [1,2,3]
         start = True
     if (selection == 2):
-        game_stat_active['kd'] = [1,2,3]
+        game_stat[0] = True
     if (selection == 3):
-        game_stat_active['kills'] = [1,2,3]
+        game_stat[1] = True
     if (selection == 4):      
-        game_stat_active['deaths'] = [1,2,3]
+        game_stat[2] = True
     if (selection == 5): 
-        game_stat_active['get_kill_cam'] = [1,2,3]
+        game_stat[3] = True
     if (selection == 6): 
-        game_stat_active['in_kill_cam'] = [1,2,3]
+        game_stat[4] = True
     if (selection == 7): 
-        game_stat_active['greatness'] = [1,2,3]
+        game_stat[5] = True
     if (selection == 8):
         start = True  
 i = 0
@@ -75,28 +80,46 @@ while (i != 10):
     if (enter_name == ""):
         break 
     else:
-        num_players.append(enter_name)
-        globals()["player"+str(i)] = game_stat_active.copy()#creates stat_active dict for each player 
-        i += 1                                                 
-        
+        players.append(enter_name)
+        num_players = num_players + 1
+        game_stat_active.update({"player"+str(i) : {"name" : enter_name}}) #, "kd" : [1,2,3,4], "kills" : [1,2,3,4], "deaths" : [1,2,3,4], "get_kill_cam" : [1,2,3,4], 
+             #"in_kill_cam" : [1,2,3,4], "greatness" : [1,2,3,4]}})
+        if (game_stat[0] == True):
+            game_stat_active["player"+str(i)]['kd'] = [1, 2, 3, 4]
+        if (game_stat[1] == True):
+            game_stat_active["player"+str(i)]["kills"] = [1, 2, 3, 4]
+        if (game_stat[2] == True):      
+            game_stat_active["player"+str(i)]["deaths"] = [1, 2, 3, 4]
+        if (game_stat[3] == True): 
+            game_stat_active["player"+str(i)]["get_kill_cam"] = [1, 2, 3, 4]
+        if (game_stat[4] == True): 
+            game_stat_active["player"+str(i)]["in_kill_cam"] = [1, 2, 3, 4]
+        if (game_stat[5] == True): 
+            game_stat_active["player"+str(i)]["greatness"] = [1, 2, 3, 4]
+        if (selection == 8):
+            start = True  
+        i += 1
+
+
+print(game_stat_active)    
  # loop through dictionary to input data and do calculations..
 
-print("enter the stats")
+print("enter the stats") #Entering k/d
 while (whole_end == False):
     if ("kd" in game_stat_active):
         while (kd_end == True):
             kd_or_kd = input("Do you want to enter 1. kills & deaths or 2.")
             kd_end = False
         if (kd_or_kd == 1):
-            for i in len(num_players - 1):
+            for i in len(players - 1):
                 print("Enter kill and death for each player")
-                player+str(i)["kd"][1] = input("kills: ")
+                #player+str(i)["kd"][1] = input("kills: ")
  #https://www.geeksforgeeks.org/python-nested-dictionary/ ?dict in dict?                
             
-    
 
 
-#kd_function(len(num_players),game_stat_active{"kd":[2]} , game_stat_active{"kd":[3]})
+
+#kd_function(len(players),game_stat_active{"kd":[2]} , game_stat_active{"kd":[3]})
 
 quit()
 
