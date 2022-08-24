@@ -2,9 +2,9 @@
 # Before switching to all info in dictionary
 import random
 import sys
-#from tkinter import N 
+# from tkinter import N 
 from functions import build_stat
-from functions import kd_function
+from functions import k_d_function
 # Create stock templetes
 # how many players
 # what to keep track of? Ability to add more
@@ -20,6 +20,7 @@ players = []
 num_players = 0
 whole_end = False
 kd_end = True
+skip = False
 
 #game_stat_active = {"kd" : [1,2,3,4], "kills" : [1,2,3,4], "deaths" : [1,2,3,4], "get_kill_cam" : [1,2,3,4], 
 #             "in_kill_cam" : [1,2,3,4], "greatness" : [1,2,3,4]}
@@ -54,11 +55,18 @@ while (start == False):
         players[1] = input("second player: ")
         game_stat_active['player0'] = players[0]
         game_stat_active['player1'] = players[1]
-        game_stat_active['kd'] = [1,2,3]
-        game_stat_active['get_kill_cam'] = [1,2,3]
-        game_stat_active['in_kill_cam'] = [1,2,3]
-        game_stat_active['greatness'] = [1,2,3]
+        game_stat_active.update({"player0" : {"name" : players[0]}})
+        game_stat_active.update({"player1" : {"name" : players[1]}})
+        game_stat_active["player0"]['kd'] = [1, 2, 3]
+        game_stat_active["player0"]['get_kill_cam'] = [1, 2, 3, 4]
+        game_stat_active["player0"]['in_kill_cam'] = [1, 2, 3, 4]
+        game_stat_active["player0"]['greatness'] = [1, 2, 3, 4]
+        game_stat_active["player1"]['kd'] = [1, 2, 3, 4]
+        game_stat_active["player1"]['get_kill_cam'] = [1, 2, 3, 4]
+        game_stat_active["player1"]['in_kill_cam'] = [1, 2, 3, 4]
+        game_stat_active["player1"]['greatness'] = [1, 2, 3, 4]
         start = True
+        skip = True
     if (selection == 2):
         game_stat[0] = True
     if (selection == 3):
@@ -74,7 +82,7 @@ while (start == False):
     if (selection == 8):
         start = True  
 i = 0
-while (i != 10):
+while (i != 10 and skip != True):
     print("Press Enter if no more players.")
     enter_name = input("player {} name: ".format(i))
     if (enter_name == ""):
@@ -85,7 +93,7 @@ while (i != 10):
         game_stat_active.update({"player"+str(i) : {"name" : enter_name}}) #, "kd" : [1,2,3,4], "kills" : [1,2,3,4], "deaths" : [1,2,3,4], "get_kill_cam" : [1,2,3,4], 
              #"in_kill_cam" : [1,2,3,4], "greatness" : [1,2,3,4]}})
         if (game_stat[0] == True):
-            game_stat_active["player"+str(i)]['kd'] = [1, 2, 3, 4]
+            game_stat_active["player"+str(i)]['kd'] = [1, 2, 3]
         if (game_stat[1] == True):
             game_stat_active["player"+str(i)]["kills"] = [1, 2, 3, 4]
         if (game_stat[2] == True):      
@@ -104,16 +112,28 @@ while (i != 10):
 print(game_stat_active)    
  # loop through dictionary to input data and do calculations..
 
-print("enter the stats") #Entering k/d
+print("enter the stats\n") #Main loop to enter all the stats
+j = 0
 while (whole_end == False):
-    if ("kd" in game_stat_active):
+    if ("kd" in game_stat_active["player"+str(j)]):
         while (kd_end == True):
-            kd_or_kd = input("Do you want to enter 1. kills & deaths or 2.")
+            kd_or_kd = int(input("Do you want to enter 1. kills & deaths or 2. k/d ratio\n"))
             kd_end = False
         if (kd_or_kd == 1):
-            for i in len(players - 1):
-                print("Enter kill and death for each player")
-                #player+str(i)["kd"][1] = input("kills: ")
+            k = 0
+            for i in players:
+                print("Enter kills then deaths")
+                kills = int(input("kills: "))
+                deaths = int(input("deaths: "))
+                game_stat_active["player"+str(k)]['kd':[3]] = k_d_function(kills, deaths) #********************
+                print(game_stat_active["player"+str(k)]['kd':3])
+                k += 1
+                
+print(game_stat_active)
+                 
+                
+                #temp_kd = input("Enter kill and death for ", i,":" )
+            
  #https://www.geeksforgeeks.org/python-nested-dictionary/ ?dict in dict?                
             
 
