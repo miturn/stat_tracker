@@ -7,12 +7,8 @@ def build_stat():
     if kd is True:
         game_stat.append(kd)
         
-def k_d_function(kd_kills, kd_deaths, kd_ratio, kd_total): 
     
-    
-    
-    
-    
-    
-
+def k_d_function(kills, deaths): 
+    temp_kd = float(kills / deaths)
+    return temp_kd
     

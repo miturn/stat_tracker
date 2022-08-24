@@ -2,9 +2,9 @@
 # Before switching to all info in dictionary
 import random
 import sys
-#from tkinter import N 
+# from tkinter import N 
 from functions import build_stat
-from functions import kd_function
+from functions import k_d_function
 # Create stock templetes
 # how many players
 # what to keep track of? Ability to add more
@@ -57,7 +57,7 @@ while (start == False):
         game_stat_active['player1'] = players[1]
         game_stat_active.update({"player0" : {"name" : players[0]}})
         game_stat_active.update({"player1" : {"name" : players[1]}})
-        game_stat_active["player0"]['kd'] = [1, 2, 3, 4]
+        game_stat_active["player0"]['kd'] = [1, 2, 3]
         game_stat_active["player0"]['get_kill_cam'] = [1, 2, 3, 4]
         game_stat_active["player0"]['in_kill_cam'] = [1, 2, 3, 4]
         game_stat_active["player0"]['greatness'] = [1, 2, 3, 4]
@@ -93,7 +93,7 @@ while (i != 10 and skip != True):
         game_stat_active.update({"player"+str(i) : {"name" : enter_name}}) #, "kd" : [1,2,3,4], "kills" : [1,2,3,4], "deaths" : [1,2,3,4], "get_kill_cam" : [1,2,3,4], 
              #"in_kill_cam" : [1,2,3,4], "greatness" : [1,2,3,4]}})
         if (game_stat[0] == True):
-            game_stat_active["player"+str(i)]['kd'] = [1, 2, 3, 4]
+            game_stat_active["player"+str(i)]['kd'] = [1, 2, 3]
         if (game_stat[1] == True):
             game_stat_active["player"+str(i)]["kills"] = [1, 2, 3, 4]
         if (game_stat[2] == True):      
@@ -112,18 +112,28 @@ while (i != 10 and skip != True):
 print(game_stat_active)    
  # loop through dictionary to input data and do calculations..
 
-print("enter the stats") #Entering k/d
+print("enter the stats\n") #Main loop to enter all the stats
 j = 0
 while (whole_end == False):
     if ("kd" in game_stat_active["player"+str(j)]):
-        print("kd in game_stat_active[player+str(j)]")
         while (kd_end == True):
-            kd_or_kd = input("Do you want to enter 1. kills & deaths or 2. k/d ratio")
+            kd_or_kd = int(input("Do you want to enter 1. kills & deaths or 2. k/d ratio\n"))
             kd_end = False
         if (kd_or_kd == 1):
-            for i in len(players - 1):
-                temp_kd = input("Enter kill and death for ", players[i],":" )
-                kd()
+            k = 0
+            for i in players:
+                print("Enter kills then deaths")
+                kills = int(input("kills: "))
+                deaths = int(input("deaths: "))
+                game_stat_active["player"+str(k)]['kd':[3]] = k_d_function(kills, deaths) #********************
+                print(game_stat_active["player"+str(k)]['kd':3])
+                k += 1
+                
+print(game_stat_active)
+                 
+                
+                #temp_kd = input("Enter kill and death for ", i,":" )
+            
  #https://www.geeksforgeeks.org/python-nested-dictionary/ ?dict in dict?                
             
 
