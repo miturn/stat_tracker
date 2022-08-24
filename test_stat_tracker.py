@@ -119,15 +119,22 @@ while (whole_end == False):
         while (kd_end == True):
             kd_or_kd = int(input("Do you want to enter 1. kills & deaths or 2. k/d ratio\n"))
             kd_end = False
-        if (kd_or_kd == 1):
-            k = 0
+            print(game_stat_active)
+            #game_stat_active = {"kd" : "kd in dict"}
+                    
+            if (kd_or_kd == 1):
+                k = 0
             for i in players:
-                print("Enter kills then deaths")
-                kills = int(input("kills: "))
-                deaths = int(input("deaths: "))
-                game_stat_active["player"+str(k)]['kd':[3]] = k_d_function(kills, deaths) #********************
-                print(game_stat_active["player"+str(k)]['kd':3])
+                print("{}'s kills:".format(i))
+                kills = int(input(""))
+                print("{}'s deaths:".format(i))
+                deaths = int(input(""))
+                #game_stat_active["player"+str(k)]['kd':[3]] = k_d_function(kills, deaths) #********************
+                print(k_d_function(kills, deaths))
+                
+                #print(game_stat_active["player"+str(k)]['kd':3])
                 k += 1
+                
                 
 print(game_stat_active)
                  
