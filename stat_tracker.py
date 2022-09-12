@@ -223,10 +223,11 @@ while (whole_end == False):#receive data from user
             k = 0 #counts for dictionary player key
             for i in players:
                 #If deaths is entered in K/D then it is transfered to kills without repeat input
-                if (game_stat_active["player"+str(k)]['kd'][0] != None and repeatStop == True):
-                    only_kills = game_stat_active["player"+str(k)]['kills'][0]
-                    repeatStop = False
-                else:
+                try:
+                    if (game_stat_active["player"+str(k)]['kd'][0] != None and repeatStop == True):
+                        only_kills = game_stat_active["player"+str(k)]['kills'][0]
+                        repeatStop = False
+                except:
                     enter_kills = True
                     while (enter_kills == True):
                         print("{}'s kills: ".format(i))
